@@ -4,6 +4,7 @@ import { loadCalendar, loadCalendarEvent } from '../data';
 import { href, useAsync } from '../hooks';
 import { sortCalendar, type CalendarEvent } from '../nostr/parse';
 import { Avatar, DateBadge, Empty, EventRow, Loading, Name, RelayNote, formatWhen } from '../components/ui';
+import { RichText } from '../components/rich';
 
 const WD = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
@@ -143,7 +144,7 @@ export function EventDetail({ naddr }: { naddr: string }) {
           </div>
           {e.image && <img class="hero" src={e.image} alt="" referrerpolicy="no-referrer" onError={(ev) => ((ev.target as HTMLImageElement).hidden = true)} />}
           {e.summary && <p class="desc">{e.summary}</p>}
-          {e.content && e.content !== e.summary && <div class="prose-text">{e.content}</div>}
+          {e.content && e.content !== e.summary && <RichText text={e.content} class="prose-text" />}
           <div class="row">
             {e.url && (
               <a class="btn p" href={e.url} target="_blank" rel="noopener noreferrer">

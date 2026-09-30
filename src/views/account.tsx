@@ -4,6 +4,7 @@ import { hasExtension, loginWithBunker, loginWithExtension, logout } from '../no
 import { href, navigate, useProfile, useSession } from '../hooks';
 import { displayName } from '../nostr/parse';
 import { Avatar, Icon } from '../components/ui';
+import { RichText } from '../components/rich';
 
 export function Login() {
   const session = useSession();
@@ -181,7 +182,7 @@ export function Account() {
       </header>
       <div class="detail">
         <section class="stack">
-          {p?.about ? <p class="desc">{p.about}</p> : <p class="muted">Kein Profiltext (kind 0) auf den Profil-Relays gefunden.</p>}
+          {p?.about ? <RichText text={p.about} class="desc" /> : <p class="muted">Kein Profiltext (kind 0) auf den Profil-Relays gefunden.</p>}
           {p?.website && (
             <p>
               <a href={p.website} target="_blank" rel="noopener noreferrer">

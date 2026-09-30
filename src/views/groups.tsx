@@ -5,7 +5,9 @@ import { getRelays, isDemo } from '../config';
 import { href, useAsync, useSession, useProfile } from '../hooks';
 import { COMMUNITY_TYPE_LABEL, KIND_LABEL, parseCalendarEvent, parseGroupMessage, parseMaterial, type Group, type GroupMessage } from '../nostr/parse';
 import type { PublishOutcome } from '../nostr/pool';
+import { groupMessageEvents } from 'applesauce-common/helpers/messages';
 import { Avatar, Empty, EventRow, Loading, MaterialCard, Name, RelayNote, relTime } from '../components/ui';
+import { RichText } from '../components/rich';
 
 export function Groups() {
   const groups = useAsync(() => loadGroups(), []);
@@ -231,8 +233,8 @@ export function GroupView({ id, relay }: { id: string; relay: string }) {
           <h2 class="h3">Chat</h2>
           {chat.length > 0 ? (
             <div class="chat">
-              {chat.map((m) => (
-                <Post key={m.id} m={m} chat />
+              {groupMessageEvents(chat.map((m) => ({ ...m, created_at: m.createdAt }))).map((run) => (
+                <ChatRun key={run[0].id} run={run} />
               ))}
             </div>
           ) : (
@@ -244,7 +246,7 @@ export function GroupView({ id, relay }: { id: string; relay: string }) {
           {group.about && (
             <section class="panel">
               <h3 class="ph">Über die Gruppe</h3>
-              <p class="small">{group.about}</p>
+              <RichText text={group.about} class="small" />
             </section>
           )}
           {d && d.admins.length > 0 && (
@@ -290,7 +292,32 @@ function Post({ m, chat = false }: { m: GroupMessage; chat?: boolean }) {
           <span>· {relTime(m.createdAt)}</span>
         </div>
         {m.title && <div class="t">{m.title}</div>}
-        <p class="txt">{m.content}</p>
+        <RichText event={m.raw} text={m.raw ? undefined : m.content} />
+      </div>
+    </article>
+  );
+}
+
+// Aufeinanderfolgende Nachrichten derselben Person (innerhalb von 5 Minuten) als eine Sprechblasen-Gruppe
+function ChatRun({ run }: { run: GroupMessage[] }) {
+  const first = run[0];
+  return (
+    <article class="msg">
+      <Avatar pubkey={first.pubkey} size={32} />
+      <div class="pbody">
+        <div class="h">
+          <b>
+            <Name pubkey={first.pubkey} />
+          </b>
+          <span>· {relTime(first.createdAt)}</span>
+        </div>
+        <div class="bubbles">
+          {run.map((m) => (
+            <div class="bubble" key={m.id} title={new Date(m.createdAt * 1000).toLocaleString('de-DE')}>
+              <RichText event={m.raw} text={m.raw ? undefined : m.content} />
+            </div>
+          ))}
+        </div>
       </div>
     </article>
   );
@@ -340,7 +367,7 @@ export function CommunityView({ npub }: { npub: string }) {
       {!c && res.data && <Empty title="Community-Definition nicht gefunden" outcomes={res.data.outcomes}>Für diesen Schlüssel liegt kein kind 10222 auf den Community-Relays.</Empty>}
       <div class="detail">
         <section class="stack">
-          {(c?.description || profile?.about) && <p class="desc">{c?.description || profile?.about}</p>}
+          {(c?.description || profile?.about) && <RichText text={c?.description || profile?.about} class="desc" />}
           {c?.membership && (
             <div class="note">
               Moderierte Community: Mitgliedschaft über die NIP-29-Gruppe{' '}

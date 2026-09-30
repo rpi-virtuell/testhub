@@ -25,7 +25,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      # npm install statt npm ci, solange package-lock.json nicht neu erzeugt ist
+      - run: npm install --no-audit --no-fund
       - run: npm run build:pages
       - uses: actions/upload-pages-artifact@v3
         with:

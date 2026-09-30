@@ -5,6 +5,7 @@ import { loadMaterial, loadMaterials } from '../data';
 import { href, navigate, useAsync, useProfiles, type Route } from '../hooks';
 import { displayName, type Material } from '../nostr/parse';
 import { Avatar, Chip, Empty, Icon, License, Loading, MaterialCard, Name, RelayNote, relTime } from '../components/ui';
+import { RichText } from '../components/rich';
 
 type FacetKey = 'levels' | 'resourceTypes' | 'licenseLabel';
 const FACETS: { key: FacetKey; label: string }[] = [
@@ -196,7 +197,7 @@ export function MaterialDetail({ naddr }: { naddr: string }) {
             {m.provider && <span>· via {m.provider}</span>}
           </div>
           {m.image && <img class="hero" src={m.image} alt="" referrerpolicy="no-referrer" onError={(e) => ((e.target as HTMLImageElement).hidden = true)} />}
-          {m.description ? <p class="desc">{m.description}</p> : <p class="desc muted">Keine Beschreibung vorhanden.</p>}
+          {m.description ? <RichText text={m.description} class="desc" /> : <p class="desc muted">Keine Beschreibung vorhanden.</p>}
           <div class="row">
             {m.url && (
               <a class="btn p" href={m.url} target="_blank" rel="noopener noreferrer">
