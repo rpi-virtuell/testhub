@@ -1,0 +1,28 @@
+{
+  "name": "edufeed-hub",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Edufeed Community-Hub – MVP (Nostr-Client für Materialien, Gruppen und Termine)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && vite build --mode single && node scripts/artifact.mjs",
+    "build:pages": "tsc --noEmit && vite build",
+    "build:single": "tsc --noEmit && vite build --mode single",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "test:e2e": "node tests/e2e.mjs"
+  },
+  "dependencies": {
+    "nostr-tools": "^2.25.2",
+    "preact": "^11.0.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "playwright": "^1.56.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vite-plugin-singlefile": "^2.3.3",
+    "ws": "^8.22.0"
+  }
+}
