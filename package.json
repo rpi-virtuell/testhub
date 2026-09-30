@@ -1,8 +1,8 @@
 {
-  "name": "edufeed-hub",
+  "name": "coc-hub",
   "private": true,
   "version": "0.1.0",
-  "description": "Edufeed Community-Hub – MVP (Nostr-Client für Materialien, Gruppen und Termine)",
+  "description": "CoC-Hub – MVP (Nostr-Client für Materialien, Gruppen und Termine)",
   "type": "module",
   "scripts": {
     "dev": "vite",

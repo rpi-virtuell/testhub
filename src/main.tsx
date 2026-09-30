@@ -80,8 +80,8 @@ function Header({ route }: { route: Route }) {
   return (
     <header class="top">
       <div class="top-in">
-        <a class="logo" href={href('')} aria-label="Edufeed Community-Hub, Startseite">
-          edufeed<em>·</em>hub
+        <a class="logo" href={href('')} aria-label="CoC-Hub, Startseite">
+          CoC<em>·</em>Hub
         </a>
         <form
           class="topsearch"
@@ -155,7 +155,7 @@ function App() {
         <View key={epoch + ':' + route.path.join('/') + '?' + route.query.toString()} route={route} />
       </main>
       <footer class="foot">
-        <span>Edufeed Community-Hub · MVP · offene Daten aus dem Nostr-Netz</span>
+        <span>CoC-Hub · MVP · offene Daten aus dem Nostr-Netz</span>
         <a href={href('einstellungen')}>Relays</a>
       </footer>
       <BottomNav route={route} />

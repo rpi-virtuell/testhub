@@ -1,4 +1,4 @@
-# Edufeed Community-Hub (MVP)
+# CoC-Hub (MVP)
 
 Ein schlanker Web-Client für das offene Edufeed-Netz auf Nostr. Er bündelt an einem Ort:
 
@@ -26,7 +26,7 @@ npm run build  # Typprüfung + alle Build-Varianten
 | --- | --- | --- |
 | `dist/` | `index.html` + `assets/` | GitHub Pages oder beliebiges statisches Hosting |
 | `dist-single/index.html` | eine eigenständige HTML-Datei (JS und CSS eingebettet) | zum Weitergeben, Öffnen ohne Server |
-| `dist-artifact/edufeed-hub.html` | dieselbe Datei ohne `<html>`/`<head>`-Gerüst | für Claude-Artifacts |
+| `dist-artifact/coc-hub.html` | dieselbe Datei ohne `<html>`/`<head>`-Gerüst | für Claude-Artifacts |
 
 Einzelne Varianten: `npm run build:pages`, `npm run build:single`. Nur Typprüfung: `npm run typecheck`.
 

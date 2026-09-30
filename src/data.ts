@@ -164,7 +164,7 @@ export async function postToGroup(group: Group, content: string, kind: 9 | 11, t
 export async function requestJoin(group: Group): Promise<PublishOutcome[]> {
   const s = getSession();
   if (!s) throw new Error('Bitte zuerst anmelden.');
-  const signed = await s.sign({ kind: 9021, content: 'Beitrittsanfrage über den Edufeed Community-Hub', tags: [['h', group.id]], created_at: Math.floor(Date.now() / 1000) });
+  const signed = await s.sign({ kind: 9021, content: 'Beitrittsanfrage über den CoC-Hub', tags: [['h', group.id]], created_at: Math.floor(Date.now() / 1000) });
   if (isDemo()) return [{ url: group.relay, ok: true, message: 'Demo: nicht gesendet' }];
   return publish([group.relay], signed);
 }

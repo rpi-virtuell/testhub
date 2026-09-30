@@ -29,7 +29,7 @@ export function startMockRelay({ port = 0, htmlFile, events = [] } = {}) {
   const server = http.createServer((req, res) => {
     if (req.headers.accept?.includes('application/nostr+json')) {
       res.writeHead(200, { 'Content-Type': 'application/nostr+json', 'Access-Control-Allow-Origin': '*' });
-      res.end(JSON.stringify({ name: 'mock-relay', supported_nips: [1, 11, 29, 50], software: 'edufeed-hub-test' }));
+      res.end(JSON.stringify({ name: 'mock-relay', supported_nips: [1, 11, 29, 50], software: 'coc-hub-test' }));
       return;
     }
     if (htmlFile && (req.url === '/' || req.url?.startsWith('/?'))) {
